@@ -1,9 +1,7 @@
 package Kwiki::UserPreferences;
-use strict;
-use warnings;
-use Kwiki::Plugin '-Base';
+use Kwiki::Plugin -Base;
 use mixin 'Kwiki::Installer';
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 const class_id => 'user_preferences';
 const class_title => 'User Preferences';
@@ -67,7 +65,6 @@ sub get_preference_objects {
     $self->preference_objects(\ @objects);
 }
     
-1;
 __DATA__
 
 =head1 NAME 
@@ -93,17 +90,12 @@ See http://www.perl.com/perl/misc/Artistic.html
 
 =cut
 __template/tt2/user_preferences_button.html__
-<!-- BEGIN user_preferences_button.html -->
 <a href="[% script_name %]?action=user_preferences" accesskey="u" title="User Preferences">
 [% INCLUDE user_preferences_button_icon.html %]
 </a>
-<!-- END user_preferences_button.html -->
 __template/tt2/user_preferences_button_icon.html__
-<!-- BEGIN user_preferences_button_icon.html -->
 Preferences
-<!-- END user_preferences_button_icon.html -->
 __template/tt2/user_preferences_content.html__
-<!-- BEGIN user_preferences_content.html -->
 [% screen_title = 'User Preferences' %]
 <div class="user_preferences">
 <form method="post">
@@ -140,4 +132,3 @@ __template/tt2/user_preferences_content.html__
 </table>
 <input type="hidden" name="action" value="user_preferences" />
 </form>
-<!-- END user_preferences_content.html -->
