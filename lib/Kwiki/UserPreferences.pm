@@ -2,12 +2,11 @@ package Kwiki::UserPreferences;
 use strict;
 use warnings;
 use Kwiki::Plugin '-Base';
-use Kwiki::Installer '-Base';
-our $VERSION = '0.10';
+use mixin 'Kwiki::Installer';
+our $VERSION = '0.11';
 
 const class_id => 'user_preferences';
 const class_title => 'User Preferences';
-const screen_template => 'user_preferences_screen.html';
 field preference_objects => [];
 
 sub register {
@@ -58,8 +57,9 @@ sub save {
 
 sub get_preference_objects {
     my %class_map = reverse %{$self->hub->registry->lookup->classes};
+
     my @objects;
-    my $objects_by_class = $self->hub->preferences->objects_by_class;
+    my $objects_by_class = $self->users->current->preferences->objects_by_class;
     for (map $class_map{$_}, @{$self->hub->config->plugin_classes}) {
         push @objects, @{$objects_by_class->{$_}}
           if defined $objects_by_class->{$_};      
@@ -102,10 +102,9 @@ __template/tt2/user_preferences_button_icon.html__
 <!-- BEGIN user_preferences_button_icon.html -->
 Preferences
 <!-- END user_preferences_button_icon.html -->
-__template/tt2/user_preferences_screen.html__
-<!-- BEGIN user_preferences_screen.html -->
+__template/tt2/user_preferences_content.html__
+<!-- BEGIN user_preferences_content.html -->
 [% screen_title = 'User Preferences' %]
-[% INCLUDE kwiki_layout_begin.html %]
 <div class="user_preferences">
 <form method="post">
 <input type="submit" name="button" value="SAVE" />
@@ -141,5 +140,4 @@ __template/tt2/user_preferences_screen.html__
 </table>
 <input type="hidden" name="action" value="user_preferences" />
 </form>
-[% INCLUDE kwiki_layout_end.html %]
-<!-- END user_preferences_screen.html -->
+<!-- END user_preferences_content.html -->
