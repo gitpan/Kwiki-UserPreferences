@@ -1,4 +1,9 @@
 ---
+version: 0.13
+date:    Tue Jan 11 08:16:39 PST 2005
+changes:
+- Remove load_class calls per Spoon-0.21
+---
 version: 0.12
 date:    Wed Dec 15 15:50:05 PST 2004
 changes:

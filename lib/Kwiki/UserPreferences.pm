@@ -1,7 +1,7 @@
 package Kwiki::UserPreferences;
 use Kwiki::Plugin -Base;
 use mixin 'Kwiki::Installer';
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 const class_id => 'user_preferences';
 const class_title => 'User Preferences';
@@ -40,7 +40,7 @@ sub save {
                     $object->new_value($setting);
                     if ($object->edit) {
                         my $method = $object->edit;
-                        $self->hub->load_class($class_id)->$method($object);
+                        $self->hub->$class_id->$method($object);
                         $errors = 1, next if $object->error;
                     }
                     $object->value($setting);
